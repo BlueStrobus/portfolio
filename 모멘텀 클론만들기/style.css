@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+}
+
+.login {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.login input,
+.login button {
+  margin: 10px;
+}
+
+.greeting {
+  margin: 20px auto;
+  max-width: 600px;
+  text-align: center;
+  font-size: 50px;
+}
+
+.clock,
+.weather,
+.todo,
+.quote {
+  margin: 20px auto;
+  max-width: 600px;
+  text-align: center;
+  font-size: 30px;
+}
+
+.time,
+.date {
+  display: block;
+}
+
+.todo input,
+.todo button {
+  margin-top: 10px;
+}
+
+.todo ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.todo li {
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.quote p {
+  font-style: italic;
+}
+
+/* 추가적인 스타일링을 할 수 있습니다. */
