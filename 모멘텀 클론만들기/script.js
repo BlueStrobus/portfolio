@@ -55,10 +55,12 @@ window.onload = function() {
     }
   
     function showGreeting(name) {
-      greeting.textContent = '안녕하세요, \n ' + name + ' \n 님';
+      var greetingText = `안녕하세요,\n${name}님`;
+      greeting.textContent = greetingText;
       greetingSection.style.display = 'block';
       nameInput.value = '';
     }
+    
   
     function clearGreeting() {
       greetingSection.style.display = 'none';

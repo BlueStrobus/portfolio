@@ -17,6 +17,10 @@ body {
   margin: 10px;
 }
 
+#greeting {
+  white-space: pre-line;
+}
+
 .greeting {
   margin: 20px auto;
   max-width: 600px;
