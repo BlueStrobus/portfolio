@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author YoonS
- *
- */
-module middlTest {
-}
