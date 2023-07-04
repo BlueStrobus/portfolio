@@ -1,0 +1,11 @@
+1. Player로 캡슐을 사용할 땐 작동하는데, 에셋스토에서 가저온 모델로 실행하니 오류남. 
+MissingComponentException: There is no 'CapsuleCollider' attached to the "DogPolyart" game object, but a script is trying to access it.
+You probably need to add a CapsuleCollider to the game object "DogPolyart". Or your script needs to check if the component is attached before using it.
+UnityEngine.Collider.get_bounds () (at C:/buildslave/unity/build/artifacts/generated/bindings_old/common/Physics/DynamicsBindings.gen.cs:2867)
+Player.IsGround () (at Assets/Scripts/Player.cs:123)
+Player.Update () (at Assets/Scripts/Player.cs:58)
+
+- 사용전에 컴포넌트 추가하라함
+-이미 Rigidbody, Mash Collider 추가했음; 뭘 더 추가해야할까요?
+
+2. 2022.3.0버전 - Terrain에서 산 못만들고 뭘로해도 구멍만 생김. - 이건 엔진오류

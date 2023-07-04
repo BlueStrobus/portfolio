@@ -1,0 +1,66 @@
+감지하는 엑터(아이템박스)의 Inspector > Tag > add Tag
+ > Tags의 + > 'EndPoint'테그 만들기 > 나왔다가 Tag를 EndTag로 바꾸기
+ > 부딪힐 아이템박스에 스크립트 추가 > 
+----------------------------------------------
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ItemBox : MonoBehaviour
+{
+    private Renderer myRenderer;
+
+    public Color touchColor;
+
+    private Color originalColor;
+    // Start is called before the first frame update
+    void Start()
+    {
+        myRenderer = GetComponent<Renderer>();
+        originalColor = myRenderer.material.color;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+
+    //트리거인 콜라이더(관통)와 충돌할 때 자동으로 실행
+    void OnTriggerEnter(Collider other){ 
+        // OnTriggerEnter는 충돌한 그 순간
+        if (other.tag == "EndPoint"){
+            myRenderer.material.color = touchColor;
+            // 충돌하면 액터 색을 touchColor로 바꾸기
+        }    
+    }
+
+
+    void OnTriggerExit(Collider other){ 
+        // OnTriggerExit는 떨어지는 그 순간
+        if (other.tag == "EndPoint"){
+            myRenderer.material.color = originalColor;
+            // 떨어지면 액터 색을 originalColor로 바꾸기
+        }    
+    }
+
+    void OnTriggerStay(Collider other){ 
+        // OnTriggerStay는 충돌, 붙어있는 '동안'
+        if (other.tag == "EndPoint"){
+            myRenderer.material.color = touchColor;
+            // 충돌하면 액터 색을 touchColor로 유지
+        }    
+    }
+
+
+
+    //(통과하지 않는) 일반 콜라이더와 층돌할 때 자동실행
+    /*void OnTriggerEnter(CollectionExtensions other){
+        Debug.Log("충돌했음!!");
+    } */
+
+}
+-----------------------------------------------
+
+

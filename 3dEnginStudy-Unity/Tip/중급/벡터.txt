@@ -1,0 +1,187 @@
+
+// 절댓좌표로 이동
+    void Start()
+    {
+        Vector3 targetPosition = new Vector3(1,0,0);
+        transform.position =   targetPosition; 
+    }
+
+
+// 상대좌표로 이동 1
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Mover : MonoBehaviour
+{
+    public Vector3 move = new Vector3(-5, 5, -5);
+    // Start is called before the first frame update
+    void Start()
+    {
+        transform.position =   transform.position + move; 
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+
+// 상대좌표 이동 2
+public class Mover : MonoBehaviour
+{
+    public Vector3 move = new Vector3(-5, 5, -5);
+    // Start is called before the first frame update
+    void Start()
+    {
+        transform.Translate(move); 
+    }
+}
+
+// 누른만큼 이동
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Mover : MonoBehaviour
+{
+    public Vector3 move = new Vector3(-5, 5, -5);
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(Input.GetKey(KeyCode.Space)){
+            Move();
+        }
+    }
+
+    void Move(){
+        transform.Translate(move * Time.deltaTime);
+         // 자기자신을 기준
+        
+        //transform.Translate(move * Time.deltaTime,Space.Self);
+          // 자기자신인 워크스페이스
+
+        //transform.Translate(move * Time.deltaTime,Space.World);
+          // 게임세상 기준 = 절대좌표  
+    }
+}
+
+// 자식엑터는 부모 기준으로 움직이기에 항상 로컬스페이스
+
+// 글로벌스페이스 
+transform.position = new Vector3(0,0,0);
+transform.rotation = Quaternion.Euler(new Vector3(30,30,30));
+    // 도형 각도 돌리는거
+    //쿼터니언 : (x,y,z,w) 4차원임, 
+        Quaternion newRotation = Quaternion.Euler(new Vector3(45,60,90));
+        transform.rotation = newRotation;
+        ----------
+        Quaternion targetRotation = Quaternion.LookRotation(new Vector3(0,1,0));
+        transform.rotation = targetRotation;
+        ----------------------------------
+public class SetRotation : MonoBehaviour
+{
+    //마주보게 만들기
+    public Transform targetTransform;
+
+    void Start()
+    {
+        Vector3 direction = targetTransform.position - targetTransform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = targetRotation; 
+        // 나가서 Transform targetTransform칸에 대상물 넣기
+    }
+}
+-----------------------------
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SetRotation : MonoBehaviour
+{
+
+    
+    // 쿼터니언 (x,y,z,w)
+
+
+    void Start()
+    {//중간값; 회전
+        Quaternion aRotation = Quaternion.Euler(new Vector3(30,0,0));
+        Quaternion bRotation = Quaternion.Euler(new Vector3(60,0,0));
+        
+        Quaternion targetRotation = Quaternion.Lerp(aRotation,bRotation,0.5f);
+        // 0.5f 는 a랑 b 중간값으로 하라는거
+        // 0.2f 넣으면 a에 가까운값나옴
+
+        transform.rotation = targetRotation;
+    }
+}
+
+__________________________
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SetRotation : MonoBehaviour
+{
+
+    
+    // 쿼터니언 (x,y,z,w)
+
+
+    void Start(){
+        //원래 로테이션 가져와서 추가회전
+        Quaternion originalRotation = transform.rotation;
+
+        Vector3 originalRotationInVector3 = originalRotation.eulerAngles;
+        Vector3 targetRotationVec = originalRotationInVector3 + new Vector3(30,0,0);
+
+        Quaternion targetRotation = Quaternion.Euler(targetRotationVec);  
+
+        transform.rotation = targetRotation;
+
+        //Debug.Log(originalRotationInVector3); //원래 로테이션값 출력
+    }
+}
+__________________________
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SetRotation : MonoBehaviour
+{
+
+    
+    // 쿼터니언 (x,y,z,w)
+
+
+    void Start(){
+        // 추가회전 ; 쿼터니엄은 곱하는게 추가회전 하는거임
+        Quaternion originalRotation = Quaternion.Euler(new Vector3(45,0,0));
+        Quaternion plusRotation = Quaternion.Euler(new Vector3(30,0,0));
+        Quaternion targetRotation = plusRotation*originalRotation;
+
+        transform.rotation = targetRotation;
+    }
+}
+
+
+
+
+
+
+
+// 로컬스페이스
+transform.localPosition = new Vector3(0,0,0); //위치
+transform.localRotation //회전
+transform.localScale    //크기
+transform.localEulerAngles
+
+
+
+
+회전
+    // 큐브 회전방법 : 1. 한번에 회전 - 로컬기준으로 돌아서 오류남
+    //              2. 나눠서 회전

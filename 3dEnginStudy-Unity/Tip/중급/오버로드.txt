@@ -1,0 +1,36 @@
+함수 이름은 같되 입력이나 출력이(개수나 타입) 달라야함
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Calc : MonoBehaviour
+{ 
+    // Start is called before the first frame update
+    void Start()
+    {
+        Debug.Log(Sum(1,1));
+
+        Debug.Log(Sum(-5,10,8));
+
+        Debug.Log(Sum(1.3f,1.6f));
+    }
+
+    //오버로드
+    public int Sum(int a, int b){
+        return a+b;
+    }
+    
+    public int Sum(int a, int b, int c){
+        return a+b+c;
+    }
+
+    public float Sum(float a, float b){
+        return a+b;
+    }
+    public float Sum(float a, float b, float c){
+        return a+b+c;
+    }
+}
+

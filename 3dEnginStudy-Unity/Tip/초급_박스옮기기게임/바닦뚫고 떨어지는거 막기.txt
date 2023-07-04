@@ -1,0 +1,2 @@
+Sphere Collider - 물체 외부에 뚫고지나가지않게 만듦
+Rigidbody - 물리엔진적용

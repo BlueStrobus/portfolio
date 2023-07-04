@@ -1,0 +1,115 @@
+게임이나 메모리상에 단 하나만 존제, 모두 접근 가능
+지연생성(사용할 때 그 때 만들어짐)
+
+----------------------------------------
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Ninja : MonoBehaviour
+{
+    public static Ninja ninjaKing;
+    // static - 모두 공유하는 사항
+    public string ninjaName;
+    public bool isKing;
+    // Start is called before the first frame update
+    void Start()
+    {
+        if(isKing){
+            ninjaKing = this;
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Debug.Log("My Name: "+ ninjaName + ", Ninja King is "+ninjaKing);
+    }
+}
+----------------------------------------------------
+
+점수 올리고 내리기
+
+    Score Manager.cs
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ScoreManager : MonoBehaviour
+{
+    // 이게 싱글톤(모두 접근)
+    public static ScoreManager instance;
+
+    private int score =0;
+
+    void Awake(){ // Awake는 Start보다 빠름; 한번 실행 
+        instance = this;
+    }
+    public int GetScore(){
+        return score;
+    }
+
+    public void AddScore(int newScore){
+        score +=newScore;
+    }
+
+}
+
+    ScoreAdder.cs
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ScoreAdder : MonoBehaviour
+{
+    
+    // Update is called once per frame
+    void Update()
+    {
+        if(Input.GetMouseButtonDown(0)){
+            // 마우스 클릭하면 점수 올라감 
+            ScoreManager.instance.AddScore(5);
+            Debug.Log(ScoreManager.instance.GetScore());
+        }        
+    }
+}
+
+    ScoreSubtrator.cs
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ScoreSubtrator : MonoBehaviour
+{
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(Input.GetMouseButtonDown(1)){
+            // 0은 왼쪽, 1은 오른쪽 커서 클릭 
+            ScoreManager.instance.AddScore(-2);
+            Debug.Log(ScoreManager.instance.GetScore());
+        }
+    }
+}
+
+________________________________________________________
+// 이게 싱글톤(모두 접근)
+    public static ScoreManager GetInstance(){
+        if(instance ==null){
+            instance = FindObjectOfType<ScoreManager>();
+        }
+        return instance;
+    }
+
+    private static ScoreManager instance;
+
+ScoreManager.cs를 이렇게 바꾸면 (void 없애고 instance 반환)
+
+ScoreManager.GetInstance().AddScore(-2);
+Debug.Log(ScoreManager.GetInstance().GetScore());
+
+다른 +,-는 GetInstance 로 바꿈

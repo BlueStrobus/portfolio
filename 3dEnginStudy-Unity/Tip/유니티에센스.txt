@@ -1,0 +1,136 @@
+물리 엔진 적용하기
+ - 물체 클릭 > inspector에 add component > Rigidbody
+ 
+재생 버튼 누르고 옆에 '>|' 모양 누르면 한 프레임(?)씩 이동 
+
+플레이모드 누른체로 한 명령(3d액터 추가하는 등)은 해제할 때 함께 사라짐
+=> 플레이 모드 누름 = 태스트모드 켜기
+
+
+트랜스폼 툴
+
+- Hand Tool :  월드 이동
+
+- Move Tool : Position 설정
+
+- Rotate Tool : Rotation 설정
+
+- Scale Tool: Scale 설정
+
+- Rect Tool: Scale 또는 Postion 설정
+
+- Move, Rotate or Scale Tool : 혼합 설정
+
+- Custom Tool : 처음에 기능 미할당; 커스텀가능
+
+ 
+씬창
+-오브젝트를 더블클릭하면 신창의 중심에 크게 보임
+-휠누르고 움직이면 이동; 
+-(플라이스모드)오른쪽 마우스 누른체로 (qweasd)누르면 화면 이동가능
+-(공전모드)옵션키(맥), 윈도우(윈도우) 누르고 마우스 움직이면 물체 중심으로 회전함
+
+기즈모 Gixmos(카메라 옆)
+- 주황색 액터 윤곽선 : Selection Outline
+- 그리드 : Show Grid
+
+유니티를 돌리는데 필수적인 폴더
+- Assets
+- Packages
+- ProjectSettings
+위에 폴더가 있는건 유니티 프로그램
+ 열기로 폴더 열기로
+
+
+상속
+class Monster //부모
+class Orc : Monster //자식-몬스터 상속받음
+class OrcChieftan : Orc //손자-오크 상속받음
+
+class 자식 : 부모
+자식은 부모의 모든걸 가져오지 선택 불가 
+ -> 필요한데로 잘 써라
+
+게임 오브젝트-컴포넌트
+ 필요한것만 갓다쓰는 방식; 
+
+
+ (게임 오브젝트 : 단순 홀더(Holder), 빈 껍데기
+  컴포넌트 :  미리 만들어진 부품
+            각자 대표 기능을 가짐
+            유연한 재사용;
+            기획자의 프로그래머 의존도 낮아짐;
+            추가삭제 쉬움;
+            스스로 동작하는 독립 부품;)
+
+
+
+
+inspector의 컴포넌트, 기능
+Transform : 위치, 크기, 회전
+Mesh Filter : 그래픽 외각선
+Mesh Renderer : 메쉬의 외각선을 따라 색을 채워서 그래픽의 외형을 그림
+Box Collider : 물체의 물리적이 표면을 만들어 다른물체와 부딪칠 수 있게 만듦
+                없으면 다른 물체가 뚫고 지나감
+Rigidbody : 물리적인 기능 적용
+
+
+컴포넌트의 구조 
+___________________________________
+|                 컴포넌트 고유의 기능  |
+|  ________________________        |
+|  |MocoBehaviour          |       |
+|  |컴포넌트로서 필요한 필수기능   |      |
+|  |_______________________|       |
+|__________________________________|
+
+MocoBehaviour :
+ - 컴포넌트로서 게임 오브젝트에 추가 가능
+ - 유니티의 통제를 받음
+ - 유니티 이벤트 메시지를 감지 가능
+
+메시지/브로드캐스팅 시스템 : 복잡한 참조관계를 끊고 라이프싸이클을 스스로 관리할 수 있게 함
+메시지 : 발신, 수신자 무시; 있으면 실행 없으면 무시
+브로드 캐스팅 : 메시지를 무차별적으로 많이 보내는 것
+유니티 이벤트 메서드 : 이름만 맞춰 구현하며느 해당 타이밍에 자동으로 실행됨
+
+변수(variable): 값(value)이 할당되는 이름
+type name; //변수 이름과 타입만 지정
+type name = value; //변수 타입과 초기값 입력
+    int gold = 1000; //정수
+    gold = gold - 200;
+    float ~~~.f //실수
+    bool //불 값은 true 나 float
+    string //문장. ="문장"
+
+함수(Function): 미리 정해진 동작을 수행하는 코드 묶음
+ 예시
+    void Attak(Monster target){
+        PlayAnimation();
+        PlaySound();
+        target.hp -= 10;
+        exp += 5;
+    }
+
+    Monster ork
+    Attak(ork);
+
+    Monster goblin
+    Attak(goblin);
+    
+ 예시2
+    void Attak(Monster target, int damage, int point){
+        PlayAnimation();
+        PlaySound();
+        target.hp -= damage;
+        exp += point;
+    }
+
+예시3
+      int GetRandomNumber(){ // 반환값의 타입을 적기; void는 반환되는 값이 없을 때 적기
+        int number = 0;
+        number = 랜덤한 숫자;
+        return number; //return이 있어야 반환값, 결과를 밖에서 쓸 수 있다.
+    }
+
+int newNumber = GetRandomNumber();

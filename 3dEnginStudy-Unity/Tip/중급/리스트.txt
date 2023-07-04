@@ -1,0 +1,72 @@
+using System.Collections;
+using System.Collections.Generic; //리스트 쓰기 위함
+using UnityEngine;
+
+public class ScoreManager : MonoBehaviour
+{
+    public int[] scores = new int[10];
+
+    private int index = 0;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(Input.GetMouseButtonDown(0)){
+            scores[index] = Random.Range(0,100);
+            index++;
+        }
+    }
+}
+// 리스트 크기 지정 -> 실시간으로 늘리기 불가
+____________________________
+// 실시간으로 리스트크기 늘어남
+using System.Collections;
+using System.Collections.Generic; // 리스트 사용위함
+using UnityEngine;
+
+public class ScoreManager : MonoBehaviour
+{
+    public List<int> scores = new List<int>();
+
+    // Update is called once per frame
+    void Update()
+    { //리스트는 순번 불필요
+        if(Input.GetMouseButtonDown(0)){ //왼쪽커서 클릭
+            int randomNumber = Random.Range(0,100);
+            scores.Add(randomNumber); //방이 실시간으로 늘어남
+        }
+
+        //방빼기    값(내용물)으로 삭제하면 중복이 있을 경우 가장먼저 검색되는 값의 방이 사라짐
+        if(Input.GetMouseButtonDown(1)){ //오른쪽커서 클릭
+            scores.RemoveAt(3); // 3번 방을 빼겠음; 트림(뒤에 있던 값이 자동으로 앞으로 옴겨짐)
+
+        }
+    }
+}
+
+-----------------------
+using System.Collections;
+using System.Collections.Generic; // 리스트 사용위함
+using UnityEngine;
+
+public class ScoreManager : MonoBehaviour
+{
+    public List<int> scores = new List<int>();
+
+    // Update is called once per frame
+    void Start()
+    {
+        //전부 삭제
+        while(scores.Count > 0)
+        {
+            scores.RemoveAt(0);
+        }
+    }
+}
+-----------------------------------

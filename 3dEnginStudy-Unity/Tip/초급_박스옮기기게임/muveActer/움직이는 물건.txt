@@ -1,0 +1,59 @@
+3d 오브젝트 만들기
+걸리지 않을 적당한 크기로 조정
+색 입히기
+    크리에이티브 메테리얼...
+        Smoothness가 높으면 번질번질함
+
+리기드바디 추가
+
++오브젝트 회전 못하게 막기
+오브젝트 > Insectore > Rigidbody > Constraints > 
+    포지션은 위치이동막기
+    로테이션은 회전막음
+
+프리텝 : 미리 만들어서 재활용가능한 애셋
+    이름이 파란색으로 뜸
+히스토리의 오브잭트를 애셋창에 드레그하기  >  다른 애셋처럼 사용하면 됨
+
+// Rigidbody - Drag : 마찰력, 저항
+
+
+///////  엔딩 포지션  /////
+큐브 작게 만들어서 이상하게 돌리기(눈에 띄는 표시)
+
+피벗글로벌로 바꾸면 피벗만 원래대로(?)돌아감
+
+접촉 감지 (물리적인 충돌 없지만 충돌 감지 
+ - 투명하거나 보이거나 지나가면 무너지거나 종료되거나 그런거 만들 때 사용)
+Insectore > Box Collider > Is Trigger 박스체 체크
+
+
+/// 물건 뱅글뱅글 돌리기 ///
+
+    void Update()
+    {
+        transform.Rotate(60,60,60);      
+        
+    }
+
+    // 속도 늦추기 - 1초에 한번 작동하도록
+    void Update()
+    {
+        transform.Rotate(60*Time.deltaTime,60*Time.deltaTime,60*Time.deltaTime);
+        
+        
+    }
+
+
+///
+
+마무리 승리 UI
+히스토리에서 우클릭 > UI > text
+앵커는 알트키 누른 채 누르기
+
+파일 > 빌드세팅 > 파일 넣기
+
+빈파일 - 이름 BGM - Add Component > Audio Source >
+
+
+

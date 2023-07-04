@@ -1,0 +1,42 @@
+모두가 공유하는 단 하나의 변수
+모든 오브젝트 초월해서
+
+다이나믹(실시간)의 반대 말
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Dog : MonoBehaviour
+{
+    public string nickName;
+    public float weight;
+    public static int count = 0;
+    void Awake(){
+        count++
+    }
+
+    void Start(){
+        Bark();
+    }
+
+    public void Bark(){
+        Debug.Log("모든 개들의 수: " + count);
+        Debug.Log(nickName + ": Bark!");
+    }
+}
+_______
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Test : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        Dbug.Log("Dog의 총 갯수 : " + Dog.count);
+        Dog.ShowAnimalType();
+    }
+}

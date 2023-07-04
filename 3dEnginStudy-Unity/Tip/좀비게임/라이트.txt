@@ -1,0 +1,60 @@
+새로운 래벨, 스캔 만들기
+ : Creat > Scene
+
+
+조작 방법
+
+라이트 설정-----------------------------------------------
+라이트 설정창 켜기 - Window > Rendering > Light Setting >
+
+Environment
+    Skybox Material  - 하늘을 덮는 박스를 선택할 수 있는 필드
+    Sun source
+
+Environment Light - 환경광 : 씬에 기본으로 깔리는 빛
+    Source - 
+    Ambient Color - 빛 색깔
+    Ambient Mode - 
+
+Environment Reflections
+    Source
+    Resolution
+    Compression
+    Intensity Multiplier
+    Bounces
+
+Reatime Lighting    
+    Reatime Global Illumination - 이미 존재하는 빛에 물체의 방향이 달라젔을 때 물체의 표면에 반사된 간접광이 실시간 반영됨
+            (미리 예상해서 만들어놓은 값이라 실시간은 아님), 스테딕 설정 되어있는것만 적용 가능
+Mixfe Lighting
+    Baked Global Illumination - 한번 구워놓으면 중간에 변경이 않됨; 스테딕 설정 되어있는것만 적용 가능
+    Lighting Mode
+
+Lightmapping Setting
+    Lightmapper - 라이트닝 에셋 만들 떄 사용하는 연산도구
+        Prioritize View
+        Multiple Importance Sampling
+        Direct Samples - 직사광
+        Indirect Samples - 간접광
+        Environment Samples - 환경광
+
+        Indirect Resolution - 간접광 해상도 (텍스 = 텍스처의 화소 단위)
+
+
+
+Aoto Generate - 라이트 자동 생성, 굽기 - 용량 많아서 랙걸리기 쉬움. 꺼놓자
+
+Generate Light - 라이트 굽기( -> Scenes폴더에 씬 이름과 동일 한 폴더 생성, 그 폴더 안에 광 관련 파일들 들음)
+
+
+
+이론 설명
+라이트 맵 - 물체에 빛 덧씌워놓은 것
+    실시간 빛인것 마냥 미리 계산해서 생성한 택스처
+    라이트맵 생성 = 라이트맵을 굽는다, 베이크
+    오브젝트가 빛을 받았을 때 실시간 연산 필요 없기에 랙 덜걸림
+
+Global Illumination - 직사광 + 간접광 표현하는 라이팅 표현방법(연산방식) = GI
+        연산 무거움... 무지많이
+
+

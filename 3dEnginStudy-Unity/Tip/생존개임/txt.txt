@@ -1,0 +1,24 @@
+컴포넌트 가져다 쓰기
+
+방법 1
+[SerializeField]
+    private float waldSpeed; //public 대신사용.. 왜쓰는걸까
+//[SerializeField]사용하면 인스펙션에서 수정 가능(public class 바로 아래); 안되는 경우도 있음
+    
+방법 2 (이게 더 빠르데)
+private Rigidbody myRigid;
+    void Start()
+    {
+        myRigid = GetComponent<Rigidbody>();
+    }
+
+==============================================================================
+시간지연
+유형 1 : ~*Time.deltaTime
+    1동안의 프레임 만큼 나눠서 1초에 한번 수행하게 만듦
+
+
+
+
+
+

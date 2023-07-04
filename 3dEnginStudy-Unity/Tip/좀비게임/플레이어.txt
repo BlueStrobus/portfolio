@@ -1,0 +1,17 @@
+3인칭 추적 카메라 만들기
+
+(시네머신패키지? 사용 - 카메라 연출과 움직임 설정 쉽게해줌)
+    (Ner Cinemachine Mixer, Auto Dolly, Lookahead,)
+https://unity.com/kr/unity/features/editor/art-and-design/cinemachine
+
+Window > Package Manager > All packages
+
+
+시네머신이 제공하는 카메라
+    Brain - 게임월드를 촬영하는 진짜 카메라; 1개; 활성중인 카메라?
+    Virtual - 브래인 카메라의 분신역할, 여러개; 브레인 카메라가 사용함
+
+
+--매인, 가상 1개 씩------------------
+매인카메라 만들기
+Hierarchy의 Main Camera > inspector에 Add> 시내머신 브래인 사용
