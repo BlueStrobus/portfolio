@@ -1,0 +1,58 @@
+(UI)Convas 만들기 > 인스펙터의 Canvas Scaler에 UIScaleMode를 Scale With Screen Size로 바꾸기. Reference Resolution x = 1920, y = 1080, match는 1
+
+Canvas안에 UI Panal 만들기 > 인스펙터의 Rect Transform 조정(중앙,450,0,0,800,1000), Image (Script)의 Color 조정, Add Component로 OutLine넣어서 테두리 만들기(x = 10, y = 10), 패멀이름 InventoryUI로 바꾸기
+
+InventoryUi 안에 패널 만들기(타이틀 만들거임)> 이름 TextPanel로 바꾸기, Rect Transform에서 타이틀 위치로 옮기기(상단부 넓게)
+
+TextPanel 안에 TextMsehPro 생성 > Rect Transform 위부터3줄 값 전부0, "INVENTORY" 크게 중앙에 배치, 원하는데로 꾸미기
+
+InventoryUI 안에 Scroll View 생성 > 인벤토리 창 크기 맞춰서 배치, Hierachy에 scrollbar 2개 다 삭제,  Scroll View의  Scroll Rect의 Horizontal 체크 해제(좌우이동 막기)
+
+Scroll View의 V어쩌구 안에 Content 안에 UI 버튼 만들기 
+Content 오브젝트에 Add component "Grid Layout Group" 추가 > Size 160*160, Spacing 20*20
+
+위에 버튼 복붙해서 가득 채우기
+
+Content 인스펙터 Grid Layout Group에서 Child Alignment에 Upper center로 바꾸기(중앙 정렬), Constraint는 Fixed Column Count로 바꾸기(설정한 수치로 버튼 가로 수 결정됨), 4,  Add component "Content Size Fitter", (도로 올라감 방지)Vertical Fit을 Preferred Size로 바꾸기
+
+버튼 하나남기고 다 지우기 > 버튼 색 바꾸고 Add Component "Shadow", 6*-5, 버튼 텍스트 지우기, 버튼이름 Slot으로 바꾸기
+
+버튼 안에 UI Image 만들기 > ItemImage로 이름 바꾸기, 크기 변경 120*120
+
+Slot을 프리펩화(프로젝트창에 드레그) 하고 하이라키창에 있는건 지우기, 프로젝트창의 Slot 복사해서 content 아래에 채우기
+
+--- 'I'키 누르면 인벤토리 열리고 닫히게 만들기 ----
+C# 스크립트 생성(InventoryUI) > Canvas에 추가
+
+-----InventoryUI.cs------------------------------------------
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class InventoryUI : MonoBehaviour
+{
+    // inventoryPanel에는 InventoryUI 오브젝트를 담음
+    public GameObject inventoryPanel;
+    bool activeInventory = false;
+    private void Start()
+    {
+        inventoryPanel.SetActive(activeInventory);
+    }
+    private void Update()
+    {
+        // GetKeyDown을 사용하여 'I'키가 눌릴 때를 조건으로 받음
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            activeInventory = !activeInventory;
+            inventoryPanel.SetActive(activeInventory);
+        }
+    }
+}
+---------------------------------------------------------------
+
+inventoryPanel에 하이라키의 InventoryUI 끌어다 놓기
+
+
+---슬롯 확장기능 추가---
+ "Slot.cs", "inventory.cs"생성
+slot 프리펩에 Slot.cs 추가
