@@ -1,0 +1,190 @@
+-----------------------------
+--인벤토리 창 만들기--
+
+스크롤 뷰만들기(UI) > "Inventory" 이름바꾸기
+Canvas > Canvas Scaler의 UI Scale Mode를 'Scale With Scen Size'로 바꾸고 x 1920, y 1080으로 변경
+인벤토리 크기를 600 * 750으로 바꾸기, 닻은 우측중앙, 화면 끝에서 조금 떨어지게 위치조정, 이미지 넣고 불투명 최대
+인벤토리 펼쳐서 스크롤 제어삭제 (vewpoint만 남기기)
+
+인벤토리 안에 UI버튼 추가하기 > "CloseButton"이름 변경, 창 끄는 이미지넣고 위치조정 
+CloseButton의 OnClick 추가, Inventory 넣고 'GameObject', 'SetActive(bool)'선택
+
+인벤토리 인스펙터창의 맨 위의 체크박스 해제(창 안보이게)
+
+캔버스안에 버튼 만들기 > 200 * 50, "InventoryButton"으로 이름바꾸고 텍스트 "INCENTORY"로 바꾸기
+InventoryButton의 OnClick 추가, Inventory 넣고 'GameObject', 'SetActive(bool)'선택, 체크박스 체크
+
+재생 눌러서 인벤토리버튼이랑 닫기버튼으로 인벤토리창 껃다켰다 되는지 확인하기
+
+-------------------------------
+--인벤토리 객체 만들기--
+인벤토리 보이게 하고
+인벤토리의 뷰포인트 안의 Content안에 버튼 만들기(100*100), 인벤토리랑 어울리는색으로 바꾸기
+    버튼은 "Item", 텍스트이름은 "ItemName"으로 바꾸고 텍스트 위치 중앙 하단으로 변경
+
+아이템 안에 이미지(UI) 만들기 > 사이즈 50*50, y값 올려서(5) 글씨 보이게 하기, 이름 "ItemIcon"으로 바꾸기
+아이템 안에 버튼 만들기 > 아이템 삭제버튼 위치로 놓기(아이템 우측상부), 이미지넣기, 크기조정, 비가시화(인스펙터창)
+
+아이템 프리펩 만들고 하이라키의창에서 지우기
+
+Content > Add Component 'Grid Layout Group' 
+> Padding - 왼쪽:40,오른쪽:0,위30,아래0
+  Spacing x5,y5
+
+--참고--
+  Padding(테두리간격 띄우기)
+  Cell Size
+  Spacing (셀 사이 간격 띄우기)
+  ...
+  Child Alignment - Middle Center 하면 중앙배열 됨
+  Constraint - Fixed Column Count - 가로 셀 개수 고정
+--------------------------------------------------
+
+
+Content 인스펙터 Add component "Content Size Fitter", (도로 올라감 방지)Vertical Fit을 Min Size로 바꾸기
+
+vewpoint > Top 30, right 17, bottom 30
+
+
+-------
+오브젝트 3개 꺼내서 화면에 배열하기, 콜리더 넣기(있으면 말고)
+"Item.cs" 만들기
+
+------------------------------------------
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "New Item", menuName = "Item/Creat New Item")]
+public class Item : ScriptableObject
+{
+    public int id; // 항목번호
+    public string itemName; // 아이템 이름
+    public int value; // 아이템 개수
+    public Sprite icon; // 아이콘 이미지
+}
+------------------------------------------
+
+Items 폴더 만들기(아이콘 관리) > 폴더 들어가서 우클릭, item클릭 > new Item 클릭(아이템 갯수만큼)
+빈칸 채우기
+
+"ItemController.cs" 만들기
+-------------
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ItemController : MonoBehaviour
+{
+    public Item Item;
+}
+--------------
+
+ItemController.cs를 모든 아이템창에 넣을 오브젝트에 넣고 프리펩 넣기
+
+하이라키창에 빈 오브젝트 만들기 + .Cs만들고 "InventoryManager"로 이름바꾸기
+ItemPickup.cs 만들기
+
+----InventoryManager.cs----
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class InventoryManager : MonoBehaviour
+{
+    public static InventoryManager Instance;
+    // 정적 인벤토리 관리자 만들고 'Instance'로 선언
+
+    public List<Item> items = new List<Item>();
+    // 이이템 리스트 만들기
+
+    private void Awake(){
+        Instance = this;
+    }
+
+    public void Add(Item item){ 
+        // 파라미터(매게변수)의 형태를 item으로 지정
+        items.Add(item);
+    }
+    public void Remove(Item item){ 
+        // 파라미터(매게변수)의 형태를 item으로 지정
+        items.Remove(item);
+    }
+}
+---------------------------------
+
+----ItemPickup.cs ----
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ItemPickup : MonoBehaviour
+{
+    public Item Item;
+
+    void Pickup(){
+        InventoryManager.Instance.Add(Item);
+        // 인벤토리 관리자에 액세스하여 항목을 추가
+        Destroy(gameObject);
+        // 추가한 항목 파괴(하이라키에서 지우기)
+    }
+
+    private void OnMouseDown(){
+        Pickup();
+    }
+
+}
+------------------------------------------
+
+객체(아이템) 내부에 충돌체(콜라이더) 있는지 확인하기
+객체(아이템)에 ItemPickup.cs 넣기, 아이콘 넣기
+
+InventoryManager의 InventoryManager.cs에 아이콘 넣기
+
+-----InventoryManager.cs 수정-----
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class InventoryManager : MonoBehaviour
+{
+    public static InventoryManager Instance;
+    // 정적 인벤토리 관리자 만들고 'Instance'로 선언
+
+    public List<Item> items = new List<Item>();
+    // 이이템 리스트 만들기
+
+    public Transform ItemContent;
+    public GameObject InvaentoryItem;
+
+    private void Awake(){
+        Instance = this;
+    }
+
+    public void Add(Item item){ 
+        // 파라미터(매게변수)의 형태를 item으로 지정
+        items.Add(item);
+    }
+    public void Remove(Item item){ 
+        // 파라미터(매게변수)의 형태를 item으로 지정
+        items.Remove(item);
+    }
+
+    public void ListItems(){
+        foreach(var item in Items){
+            GameObject obj = Instantiate(InvaentoryItem, ItemContent);
+            var itemName = obj.transform.Find("Item/ItemName").GetComponent<Text>();
+            var itemIcon = obj.transform.Find("Item/ItenIcon").GetComponent<Image>();
+
+            itemName.text = item.ItemName;
+            itemIcon.sprite = item.icon;
+
+        }
+    }
+}
+
+--------------------------
+
+인벤토리 버튼 온클릭 추가 > 하이라키의 인벤매니저 넣고 인벤토리메니저의 ListIten()선택
+
+
